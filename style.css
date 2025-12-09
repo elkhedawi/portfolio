@@ -1,0 +1,192 @@
+:root {
+    --primary: #00f2ea;   /* لون سماوي */
+    --secondary: #ff0050; /* لون أحمر */
+    --bg-dark: #050505;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    cursor: default; 
+}
+
+body {
+    background-color: var(--bg-dark);
+    font-family: 'Outfit', sans-serif;
+    color: rgb(255, 255, 255);
+    overflow-x: hidden;
+}
+
+/* === إصلاح المشكلة: جعل الخلفية لا تمنع الضغط === */
+#fluid-canvas, .cursor-glow {
+    position: fixed;
+    top: 0;
+    left: 0;
+    pointer-events: none; /* هذا السطر هو الحل للمشكلة */
+    z-index: -1; /* جعلها في الخلفية تماما */
+}
+
+#fluid-canvas {
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at center, #1a0b2e 0%, #000000 100%);
+}
+
+.cursor-glow {
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(0, 242, 234, 0.1), transparent 70%);
+    transform: translate(-50%, -50%);
+    transition: width 0.3s, height 0.3s;
+}
+
+/* Navigation */
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 5%;
+    position: fixed;
+    width: 100%;
+    z-index: 1000; /* رفع القائمة فوق كل شيء */
+    backdrop-filter: blur(10px);
+    background: rgba(0,0,0,0.3);
+}
+
+.logo { font-size: 2rem; font-weight: 800; }
+.dot { color: var(--secondary); }
+
+.nav-links { display: flex; gap: 2rem; list-style: none; }
+.nav-links a { text-decoration: none; color: rgb(80, 119, 247); font-weight: 500; transition: color 0.3s; }
+.nav-links a:hover { color: var(--primary); }
+
+.magnetic-btn {
+    padding: 0.8rem 1.5rem;
+    background: white;
+    color: black;
+    border-radius: 30px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+.magnetic-btn:hover {
+    background: var(--primary);
+    box-shadow: 0 0 20px var(--primary);
+}
+
+.menu-toggle { display: none; font-size: 1.5rem; cursor: pointer; }
+
+/* Hero Section & Social Icons */
+.hero {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 0 1rem;
+    position: relative;
+    z-index: 10; /* التأكد من أن المحتوى قابل للضغط */
+}
+
+.hero h1 { font-size: 4rem; line-height: 1.1; margin-bottom: 1rem; }
+.gradient-text {
+    background: linear-gradient(to right, var(--primary), var(--secondary));
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+/* === تصميم أيقونات السوشيال ميديا === */
+.social-hub {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-top: 3rem;
+}
+
+.social-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    color: white;
+    text-decoration: none;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease;
+}
+
+/* ألوان الأيقونات عند الوقوف عليها */
+.social-icon:hover { transform: translateY(-5px) scale(1.1); }
+.social-icon.facebook:hover { background: #1877F2; border-color: #1877F2; box-shadow: 0 0 20px #1877F2; }
+.social-icon.whatsapp:hover { background: #25D366; border-color: #25D366; box-shadow: 0 0 20px #25D366; }
+.social-icon.instagram:hover { background: #E4405F; border-color: #E4405F; box-shadow: 0 0 20px #E4405F; }
+.social-icon.twitter:hover { background: #000; border-color: #fff; box-shadow: 0 0 20px #fff; }
+.social-icon.tiktok:hover { background: #000000; border-color: #00f2ea; box-shadow: 3px 3px 0 #ff0050, -3px -3px 0 #00f2ea; }
+
+
+/* Projects Grid */
+.projects { padding: 5rem 10%; position: relative; z-index: 10; }
+.projects h2 { font-size: 3rem; margin-bottom: 3rem; text-align: center; }
+
+.cards-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.card {
+    height: 300px;
+    border-radius: 20px;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    cursor: pointer;
+    transition: 0.4s;
+}
+
+.glass {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(10px);
+}
+
+.card-content {
+    position: absolute;
+    bottom: 0; left: 0; width: 100%;
+    padding: 2rem;
+    background: linear-gradient(to top, black, transparent);
+    transform: translateY(100%);
+    transition: transform 0.4s;
+}
+
+.card:hover { border-color: var(--primary); box-shadow: 0 0 30px rgba(0, 242, 234, 0.2); }
+.card:hover .card-content { transform: translateY(0); }
+
+/* Contact */
+.contact { padding: 5rem 10%; text-align: center; position: relative; z-index: 10; }
+.big-button {
+    display: inline-block;
+    margin-top: 2rem;
+    padding: 1rem 3rem;
+    border: 1px solid rgb(0, 110, 255);
+    border-radius: 50px;
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+    transition: 0.3s;
+}
+.big-button:hover { background: rgb(255, 255, 255); color: black; box-shadow: 0 0 30px white; }
+img {
+  width: 100%;
+  height: auto;
+}
+.footer-simple { margin-top: 5rem; color: #666; font-size: 0.9rem; }
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .nav-links { display: none; } /* يمكن تفعيل القائمة الجانبية هنا لاحقا */
+    .menu-toggle { display: block; color: rgb(255, 255, 255); }
+    .hero h1 { font-size: 2.5rem; }
+    .social-hub { gap: 1rem; flex-wrap: wrap; }
+}
